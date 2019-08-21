@@ -1,0 +1,18 @@
+version: 0.0
+os: linux
+files:
+  - source: /saltstack/
+    destination: /srv/salt/
+  - source: saltstack/states/salt/master/bootstrap/etc/salt/
+    destination: /etc/salt/
+
+
+hooks:
+  ApplicationStart:
+    - location: aws/codedeploy/scripts/start_server.sh
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: aws/codedeploy/scripts/stop_server.sh
+      timeout: 300
+      runas: root
